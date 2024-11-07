@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoPriceView</title>
+</head>
+<body>
+    <% if (locals.priceData) { %>
+        <h2 class="priceData__symbolName"><%= priceData['symbol'] %></h2>
+        <ul class="priceData__list">
+            <li class="priceData__listItem">Last price in 24h: <%= priceData['price_24h'] %></li>
+            <li class="priceData__listItem">Volume in 24h: <%= priceData['volume_24h'] %></li>
+            <li class="priceData__listItem">Last trade price: <%= priceData['last_trade_price'] %></li>
+        </ul>
+    <% } else { %>
+        <h1>Choose a currency to view data</h1>
+    <form action="/currency" method="post">
+        <select name="currency" id="price__dropdown">
+            <option value="Currency">Currency</option>
+            <% if (locals.symbolData) { %>
+                <% symbolData.forEach((element) => { %>
+                <option value="<%= element %>"><%= element %></option>
+                <% }) %>
+            <% } else { %>
+                <% console.error("Something went wrong") %>
+            <% } %>
+            </select>
+            <button type="submit">Proceed</button>
+    </form>
+    <% } %>
+    
+</body>
+</html>
